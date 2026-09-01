@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizador de Coworking - Algoritmo Greedy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Optimizador de Salas Coworking</h1>
+    <p class="text-center text-muted">Algoritmo Greedy (Voraz) - Seleccion de Actividades</p>
+
+    <div class="row">
+        <!-- Panel Izquierdo: Formulario ingreso -->
+        <div class="col-md-5">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Agregar Solicitud de Reunion</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label>Nombre de la reunion:</label>
+                        <input type="text" id="nombre" class="form-control" placeholder="Ej: Equipo de Marketing" required>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Hora Inicio (0-24):</label>
+                            <input type="number" id="inicio" class="form-control" placeholder="Ej: 9" min="0" max="23" required>
+                        </div>
+                        <div class="col">
+                            <label>Hora Fin (0-24):</label>
+                            <input type="number" id="fin" class="form-control" placeholder="Ej: 11" min="1" max="24" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-success w-100" onclick="agregarReunion()">Agregar a la lista</button>
+                </div>
+            </div>
+
+            <!-- Lista reuniones agregadas -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Reuniones Solicitadas</h5>
+                    <span id="contador" class="badge bg-light text-dark">0</span>
+                </div>
+                <ul class="list-group list-group-flush" id="listaReuniones">
+                    <li class="list-group-item text-muted text-center" id="mensajeVacio">No hay reuniones agregadas.</li>
+                </ul>
+                <div class="card-body">
+                    <button class="btn btn-primary w-100 fw-bold" onclick="optimizarAgenda()">OPTIMIZAR AGENDA</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Derecho: Resultados Algoritmo -->
+        <div class="col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">Resultados de la Optimizacion</h5>
+                </div>
+                <div class="card-body">
+                    <div id="resultados" style="display: none;">
+                        <h5 class="text-success">Reuniones Aprobadas (Sala Ocupada)</h5>
+                        <p class="text-muted small">El algoritmo selecciono estas reuniones para maximizar el uso de la sala.</p>
+                        <ul class="list-group mb-4" id="listaAprobadas"></ul>
+
+                        <h5 class="text-danger">Reuniones Rechazadas</h5>
+                        <p class="text-muted small">Estas reuniones se cruzaban con las aprobadas y tuvieron que ser descartadas.</p>
+                        <ul class="list-group" id="listaRechazadas"></ul>
+                    </div>
+                    <div id="resultadoVacio" class="text-center text-muted py-5">
+                        <p>Agrega reuniones y presiona "Optimizar Agenda" para ver el resultado del algoritmo Greedy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
