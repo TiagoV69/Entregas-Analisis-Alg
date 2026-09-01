@@ -77,5 +77,109 @@
         </div>
     </div>
 </div>
+
+
+<!-- Logica en JS -->
+<script>
+    let reuniones = [];
+
+    // Funcion para agregar una reunion a la lista visual y al arreglo
+    function agregarReunion() {
+        const nombre = document.getElementById('nombre').value;
+        const inicio = parseInt(document.getElementById('inicio').value);
+        const fin = parseInt(document.getElementById('fin').value);
+
+        if (!nombre || isNaN(inicio) || isNaN(fin)) {
+            alert('Por favor, llena todos los campos.');
+            return;
+        }
+        if (inicio >= fin) {
+            alert('La hora de inicio debe ser menor a la hora de fin.');
+            return;
+        }
+
+        const reunion = { nombre, inicio, fin };
+        reuniones.push(reunion);
+
+        actualizarListaVisual();
+        
+        // limpia formulario
+        document.getElementById('nombre').value = '';
+        document.getElementById('inicio').value = '';
+        document.getElementById('fin').value = '';
+        document.getElementById('nombre').focus();
+    }
+
+    function actualizarListaVisual() {
+        const lista = document.getElementById('listaReuniones');
+        lista.innerHTML = ''; // Limpiar lista
+        
+        if (reuniones.length === 0) {
+            lista.innerHTML = '<li class="list-group-item text-muted text-center">No hay reuniones agregadas.</li>';
+        } else {
+            reuniones.forEach(r => {
+                lista.innerHTML += `<li class="list-group-item"><strong>${r.nombre}</strong> <br> ${r.inicio}:00 a ${r.fin}:00</li>`;
+            });
+        }
+        document.getElementById('contador').innerText = reuniones.length;
+    }
+
+    // Funcion que llama al backend de java
+    async function optimizarAgenda() {
+        if (reuniones.length === 0) {
+            alert('Primero agrega reuniones a la lista.');
+            return;
+        }
+
+        try {
+            // llamamos controlador Java
+            const response = await fetch('/api/reuniones/optimizar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reuniones)
+            });
+
+            if (response.ok) {
+                const aprobadas = await response.json();
+                mostrarResultados(aprobadas);
+            } else {
+                alert('Hubo un error al optimizar.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error de conexión con el servidor Java.');
+        }
+    }
+
+    function mostrarResultados(aprobadas) {
+        document.getElementById('resultadoVacio').style.display = 'none';
+        document.getElementById('resultados').style.display = 'block';
+
+        const listaAprobadas = document.getElementById('listaAprobadas');
+        const listaRechazadas = document.getElementById('listaRechazadas');
+        
+        listaAprobadas.innerHTML = '';
+        listaRechazadas.innerHTML = '';
+
+        // nombres de las aprobadas y cuales fueron rechazadas
+        const nombresAprobadas = aprobadas.map(a => a.nombre);
+
+        // llenar listas
+        reuniones.forEach(r => {
+            const esAprobada = nombresAprobadas.includes(r.nombre);
+            const htmlItem = `<li class="list-group-item ${esAprobada ? 'list-group-item-success' : 'list-group-item-danger'}">
+                                <strong>${r.nombre}</strong> (${r.inicio}:00 a ${r.fin}:00)
+                              </li>`;
+            
+            if (esAprobada) {
+                listaAprobadas.innerHTML += htmlItem;
+            } else {
+                listaRechazadas.innerHTML += htmlItem;
+            }
+        });
+    }
+</script>
 </body>
 </html>
