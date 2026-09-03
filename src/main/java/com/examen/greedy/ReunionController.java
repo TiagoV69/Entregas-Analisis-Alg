@@ -20,4 +20,9 @@ public class ReunionController {
     public ReunionController(ReunionService reunionService) {
         this.reunionService = reunionService;
     }
+
+    @PostMapping("/optimizar")
+    public List<Reunion> optimizar(@RequestBody List<Reunion> reuniones) {
+        return reunionService.optimizar(reuniones);
+    }
 }
