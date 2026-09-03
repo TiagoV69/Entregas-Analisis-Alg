@@ -25,4 +25,10 @@ public class ReunionController {
     public List<Reunion> optimizar(@RequestBody List<Reunion> reuniones) {
         return reunionService.optimizar(reuniones);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> manejarDatosInvalidos(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", exception.getMessage()));
+    }
 }
