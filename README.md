@@ -54,3 +54,7 @@ Los datos invalidos producen una respuesta HTTP `400` con un mensaje descriptivo
 ## Complejidad
 
 Ordenar las $n$ reuniones cuesta $O(n log n)$ y recorrerlas cuesta $O(n)$. Por tanto, la complejidad total es $O(n log n)$ y el espacio adicional usado para la copia ordenada es $O(n)$.
+
+## Link video:
+
+https://correoitmedu-my.sharepoint.com/:v:/g/personal/santiagovarela314184_correo_itm_edu_co/IQBWAbN13Ci1Tr_9uUn5omN4AawL-vj5rr9ny1vGETpZJXY?e=6u1lW9&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
