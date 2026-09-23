@@ -1,0 +1,30 @@
+{
+  "usuarios": [
+    {"id": 1, "nombre": "Ana", "avatar": "🧑‍🦰"},
+    {"id": 2, "nombre": "Luis", "avatar": "🧑"},
+    {"id": 3, "nombre": "Pedro", "avatar": "👨"},
+    {"id": 4, "nombre": "Marta", "avatar": "👩"},
+    {"id": 5, "nombre": "Sofía", "avatar": "👱‍♀️"},
+    {"id": 6, "nombre": "Carlos", "avatar": "🧔"},
+    {"id": 7, "nombre": "Valentina", "avatar": "👩‍🦱"},
+    {"id": 8, "nombre": "Diego", "avatar": "👨‍🦲"},
+    {"id": 9, "nombre": "Camila", "avatar": "👩‍🦳"},
+    {"id": 10, "nombre": "Andrés", "avatar": "👨‍🦰"},
+    {"id": 11, "nombre": "Laura", "avatar": "🧕"},
+    {"id": 12, "nombre": "Julián", "avatar": "🧑‍🦱"}
+  ],
+  "amistades": [
+    {"origen": 1, "destino": 2},
+    {"origen": 2, "destino": 3},
+    {"origen": 1, "destino": 4},
+    {"origen": 4, "destino": 5},
+    {"origen": 5, "destino": 6},
+    {"origen": 3, "destino": 7},
+    {"origen": 7, "destino": 8},
+    {"origen": 8, "destino": 9},
+    {"origen": 6, "destino": 10},
+    {"origen": 10, "destino": 11},
+    {"origen": 11, "destino": 12},
+    {"origen": 9, "destino": 12}
+  ]
+}
