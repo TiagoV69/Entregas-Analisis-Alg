@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Red Conecta | Explorador BFS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Red Conecta, inicio">
+        <span class="brand-mark">RC</span>
+        <span><strong>Red Conecta</strong><small>Laboratorio de grafos</small></span>
+      </a>
+      <div class="api-status"><span id="status-dot"></span><span id="status-text">Conectando con la API...</span></div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Algoritmo BFS en accion</p>
+          <h1>Entiende como viajan<br><em>las conexiones.</em></h1>
+          <p class="hero-copy">Explora la red social, encuentra el camino mas corto entre dos personas y descubre nuevas conexiones a dos saltos.</p>
+        </div>
+        <div class="hero-badge"><span class="pulse"></span><strong>Grafo no dirigido</strong><small>Recorrido por niveles</small></div>
+      </section>
+
+      <section class="metrics" aria-label="Resumen de la red">
+        <article><span class="metric-icon">N</span><div><strong id="users-count">-</strong><span>usuarios</span></div></article>
+        <article><span class="metric-icon">E</span><div><strong id="edges-count">-</strong><span>amistades</span></div></article>
+        <article><span class="metric-icon">BFS</span><div><strong>2</strong><span>consultas disponibles</span></div></article>
+      </section>
+
+      <section class="workspace-grid">
+        <article class="panel graph-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Mapa de conexiones</p><h2>La red completa</h2></div><span class="legend"><i class="legend-line"></i>Amistad</span></div>
+          <div class="graph-stage"><canvas id="graph-canvas" aria-label="Visualizacion del grafo de amistades"></canvas><div id="graph-empty" class="empty-state">Inicia el backend para visualizar la red.</div></div>
+          <div class="graph-footer"><span id="graph-caption">Selecciona una consulta para resaltar su recorrido BFS.</span><button id="reset-graph" class="text-button" type="button">Limpiar recorrido</button></div>
+        </article>
+
+        <aside class="panel controls-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Centro de analisis</p><h2>Consultas BFS</h2></div><span class="bfs-chip">BFS</span></div>
+          <div class="tabs" role="tablist"><button class="tab active" data-tab="distance" role="tab" type="button">Distancia</button><button class="tab" data-tab="suggestions" role="tab" type="button">Sugerencias</button></div>
+
+          <form id="distance-form" class="query-form">
+            <label>Usuario de origen<select id="origin-select" required></select></label>
+            <label>Usuario de destino<select id="destination-select" required></select></label>
+            <button class="primary-button" type="submit">Calcular camino <span>-></span></button>
+          </form>
+          <form id="suggestions-form" class="query-form hidden">
+            <label>Buscar conexiones para<select id="suggestion-select" required></select></label>
+            <button class="primary-button" type="submit">Buscar sugerencias <span>-></span></button>
+          </form>
+          <div id="result" class="result-panel" aria-live="polite"><span class="result-mark">?</span><div><strong>Listo para explorar</strong><p>Elige una consulta para ver como BFS recorre la red.</p></div></div>
+        </aside>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel people-panel"><div class="panel-heading"><div><p class="eyebrow">Directorio</p><h2>Personas en la red</h2></div><span id="people-count" class="muted">0 perfiles</span></div><div id="people-list" class="people-list"></div></article>
+        <article class="panel algorithm-panel"><p class="eyebrow">Lectura rapida</p><h2>Por que BFS?</h2><p>BFS visita un grafo por niveles. Por eso, cuando encuentra el destino, el camino construido siempre representa la menor cantidad de conexiones posibles.</p><div class="algorithm-steps"><span><b>01</b>Encola el origen</span><span><b>02</b>Expande vecinos</span><span><b>03</b>Reconstruye camino</span></div></article>
+      </section>
+    </main>
+    <footer><span>Entrega 2 · Analisis de Algoritmos</span><span>Red Conecta / BFS</span></footer>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
