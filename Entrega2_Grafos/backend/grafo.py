@@ -1,8 +1,8 @@
 """
 grafo.py
 Lógica de grafo no dirigido y algoritmo BFS para:
-1. Calcular el grado de separación (camino más corto) entre dos usuarios.
-2. Sugerir amigos (usuarios a distancia 2: "amigos de amigos").
+1.Calcular el grado de separación (camino más corto) entre dos usuarios.
+2.Sugerir amigos (usuarios a distancia 2: "amigos de amigos").
 
 Se mantiene independiente de Flask para poder probarlo con unit tests
 sin necesidad de levantar un servidor.
