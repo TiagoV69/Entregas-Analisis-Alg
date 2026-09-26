@@ -372,3 +372,59 @@ curl "http://127.0.0.1:5000/bfs/distancia?origen=1&destino=12"
 - **Distancia**: 5 grados de separación
 - **Camino**: Ana → Luis → Pedro → Valentina → Diego → Camila → Julián
 - **Pasos**: Orden en que BFS visitó los nodos
+
+
+### Ejemplo 2: Sugerencias de Amistad para Ana (1)
+
+**Request:**
+```bash
+curl "http://127.0.0.1:5000/bfs/sugerencias?usuario=1"
+```
+
+**Response:**
+```json
+{
+  "directos": [2, 4],
+  "sugeridos": [3, 5]
+}
+```
+
+**Interpretación:**
+- **Amigos directos**: Luis (2) y Marta (4)
+- **Sugeridos**: Pedro (3) y Sofía (5)
+  - Pedro es amigo de Luis (amigo de Ana)
+  - Sofía es amiga de Marta (amiga de Ana)
+
+### Ejemplo 3: Usuario Sin Conexiones
+
+**Request:**
+```bash
+curl "http://127.0.0.1:5000/bfs/distancia?origen=1&destino=999"
+```
+
+**Response:**
+```json
+{
+  "distancia": -1,
+  "camino": [],
+  "pasos": [1, 2, 4, 3, 5, 7, 6, 8, 10, 9, 11, 12]
+}
+```
+
+**Interpretación:**
+- **Distancia -1**: No hay camino entre los usuarios
+- BFS exploró toda la red conectada desde el origen
+
+---
+
+## Referencias
+
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). *Introduction to Algorithms* (3rd ed.). MIT Press.
+- Sedgewick, R., & Wayne, K. (2011). *Algorithms* (4th ed.). Addison-Wesley.
+- Documentación oficial de Flask: https://flask.palletsprojects.com/
+- Breadth-First Search - Wikipedia: https://en.wikipedia.org/wiki/Breadth-first_search
+
+---
+
+**Entrega 2 · Análisis de Algoritmos**  
+*Red Conecta - Explorador de Grafos con BFS*
