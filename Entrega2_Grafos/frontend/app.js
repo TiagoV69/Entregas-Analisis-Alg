@@ -79,7 +79,7 @@ async function loadNetwork() {
   try {
     const response = await fetch(`${API_URL}/usuarios`); if (!response.ok) throw new Error('API unavailable');
     const data = await response.json(); state.users = data.usuarios; state.friendships = data.amistades;
-    ['origin-select', 'destination-select', 'suggestion-select'].forEach(fillSelect); renderPeople(); byId('graph-empty').hidden = true; setStatus('online', 'API conectada'); resizeCanvas();
+    ['origin-select', 'destination-select', 'suggestion-select'].forEach(fillSelect); renderPeople(); byId('graph-empty').style.display = 'none'; setStatus('online', 'API conectada'); resizeCanvas();
   } catch (error) { console.error(error); setStatus('error', 'API no disponible'); showResult('No se pudo cargar la red', 'Levanta el backend con python app.py y recarga esta pagina.', 'error'); }
 }
 
