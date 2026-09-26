@@ -7,6 +7,8 @@ SANTIAGO VARELA JIMÉNEZ
 BRAYAN ALEXIS CORREA TORRES
 ENRIQUE BETANCUR PINEDA
 
+# LINK DEL VIDEO: https://correoitmedu-my.sharepoint.com/:v:/g/personal/santiagovarela314184_correo_itm_edu_co/IQDlB53IM3NuTpFPbjLk-dIeAXZiQStOo2HzL-VJb0T5YTE?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Z7Iork
+
 # Red Conecta - Explorador de Grafos con BFS
 
 ## Descripción del Problema
