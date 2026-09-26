@@ -137,3 +137,238 @@ función sugerir_amigos(grafo, usuario_id):
         sugeridos: ordenar(nivel2)
     }
 ```
+
+
+## Complejidad
+
+### Complejidad Temporal
+
+#### `bfs_distancia(grafo, origen, destino)`
+- **Peor caso**: O(V + E)
+  - Cada vértice se visita una vez: O(V)
+  - Cada arista se examina hasta dos veces (una por cada extremo): O(E)
+- **Mejor caso**: O(1) si origen == destino
+
+#### `sugerir_amigos(grafo, usuario_id)`
+- **Peor caso**: O(V + E)
+  - Itera sobre los vecinos del usuario: O(grado(usuario))
+  - Para cada vecino, itera sobre sus vecinos: O(∑ grado(vecino))
+  - En el peor caso (grafo denso), esto puede ser O(V²), pero en grafos dispersos (como redes sociales reales) es O(V)
+
+### Complejidad Espacial
+
+- **Grafo (lista de adyacencia)**: O(V + E)
+- **Auxiliares de BFS**:
+  - `visitados`: O(V)
+  - `padres`: O(V)
+  - `cola`: O(V) en el peor caso
+  - `orden_visita`: O(V)
+- **Total**: O(V + E)
+
+##  Arquitectura del Proyecto
+
+```
+Entrega2_Grafos/
+│
+├── backend/
+│   ├── app.py              # API Flask con endpoints REST
+│   ├── grafo.py            # Lógica de grafo y algoritmos BFS
+│   ├── datos.json          # Base de datos (usuarios y amistades)
+│   ├── requirements.txt    # Dependencias de Python
+│   ├── pytest.ini          # Configuración de tests
+│   └── tests/
+│       └── test_grafo.py   # Tests unitarios de los algoritmos
+│
+├── frontend/
+│   ├── index.html          # Interfaz de usuario
+│   ├── app.js              # Lógica del frontend y llamadas a la API
+│   └── styles.css          # Estilos visuales
+│
+└── venv/                   # Entorno virtual de Python
+```
+
+### Flujo de Datos
+
+```
+┌──────────────┐         HTTP GET/POST         ┌──────────────┐
+│   Frontend   │  ────────────────────────────> │  Flask API   │
+│ (index.html, │                                 │   (app.py)   │
+│    app.js)   │  <────────────────────────────  │              │
+└──────────────┘         JSON Response          └──────┬───────┘
+                                                        │
+                                                        │ usa
+                                                        ▼
+                                                ┌──────────────┐
+                                                │   grafo.py   │
+                                                │ (BFS logic)  │
+                                                └──────┬───────┘
+                                                        │
+                                                        │ lee/escribe
+                                                        ▼
+                                                ┌──────────────┐
+                                                │ datos.json   │
+                                                │ (usuarios +  │
+                                                │  amistades)  │
+                                                └──────────────┘
+```
+
+## Tabla de Endpoints
+
+| Método | Ruta | Parámetros | Respuesta Esperada | Descripción |
+|--------|------|------------|-------------------|-------------|
+| **GET** | `/usuarios` | Ninguno | `{"usuarios": [...], "amistades": [...]}` | Retorna todos los usuarios y amistades del sistema |
+| **POST** | `/usuarios` | Body: `{"nombre": "string", "avatar": "emoji"}` | `{"id": number, "nombre": "string", "avatar": "emoji"}` | Crea un nuevo usuario |
+| **POST** | `/amistades` | Body: `{"origen": number, "destino": number}` | `{"origen": number, "destino": number}` | Crea una nueva amistad |
+| **GET** | `/bfs/distancia` | Query: `?origen=X&destino=Y` | `{"distancia": number, "camino": [ids], "pasos": [ids]}` | Calcula el grado de separación entre dos usuarios |
+| **GET** | `/bfs/sugerencias` | Query: `?usuario=X` | `{"directos": [ids], "sugeridos": [ids]}` | Sugiere amigos de amigos para un usuario |
+
+### Ejemplos de Respuestas
+
+#### GET `/bfs/distancia?origen=1&destino=12`
+```json
+{
+  "distancia": 5,
+  "camino": [1, 2, 3, 7, 8, 9, 12],
+  "pasos": [1, 2, 4, 3, 5, 7, 6, 8, 10, 9, 11, 12]
+}
+```
+
+#### GET `/bfs/sugerencias?usuario=1`
+```json
+{
+  "directos": [2, 4],
+  "sugeridos": [3, 5]
+}
+```
+
+## Instrucciones de Instalación
+
+### Requisitos Previos
+
+- **Python 3.10+** instalado
+- **Git** (para clonar el repositorio)
+- Navegador web moderno (Chrome, Firefox, Edge)
+
+### Paso 1: Clonar el Repositorio
+
+```bash
+git clone <url-del-repositorio>
+cd Entrega2_Grafos
+```
+
+### Paso 2: Crear y Activar el Entorno Virtual
+
+**En Windows (PowerShell):**
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+Si PowerShell bloquea la ejecución del script, ejecuta una vez:
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+**En Linux/macOS:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+El prompt debe mostrar `(venv)` al inicio.
+
+### Paso 3: Instalar Dependencias
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+### Paso 4: Levantar el Backend
+
+```bash
+python app.py
+```
+
+**Salida esperada:**
+```
+ * Running on http://127.0.0.1:5000
+ * Debug mode: on
+```
+
+Deja esta terminal abierta con el servidor corriendo.
+
+### Paso 5: Abrir el Frontend
+
+1. Abre otra terminal
+2. Navega a la carpeta `frontend/`
+3. Abre `index.html` directamente en tu navegador:
+
+**Opción 1 (desde terminal):**
+```bash
+# Windows
+start frontend/index.html
+
+# macOS
+open frontend/index.html
+
+# Linux
+xdg-open frontend/index.html
+```
+
+**Opción 2:**
+Haz doble clic en el archivo `frontend/index.html` desde el explorador de archivos.
+
+### Paso 6: Verificar la Conexión
+
+En el navegador deberías ver:
+- Estado de la API: **"API conectada"** (punto verde)
+- Red visualizada con 12 usuarios
+- Formularios de consulta habilitados
+
+## Ejecutar las Pruebas
+
+Con el entorno virtual activado y dentro de la carpeta `backend/`:
+
+```bash
+pytest -v
+```
+
+**Salida esperada:**
+```
+tests/test_grafo.py::test_construir_grafo_nodo_aislado PASSED
+tests/test_grafo.py::test_construir_grafo_no_dirigido PASSED
+tests/test_grafo.py::test_bfs_distancia_camino_directo PASSED
+tests/test_grafo.py::test_bfs_distancia_camino_largo PASSED
+tests/test_grafo.py::test_bfs_distancia_mismo_nodo PASSED
+tests/test_grafo.py::test_bfs_distancia_sin_conexion PASSED
+tests/test_grafo.py::test_bfs_distancia_usuario_inexistente PASSED
+tests/test_grafo.py::test_sugerir_amigos_normal PASSED
+tests/test_grafo.py::test_sugerir_amigos_usuario_aislado PASSED
+tests/test_grafo.py::test_sugerir_amigos_usuario_inexistente PASSED
+
+========== 10 passed in 0.XX s ==========
+```
+
+## Ejemplos de Consultas
+
+### Ejemplo 1: Calcular Distancia entre Ana (1) y Julián (12)
+
+**Request:**
+```bash
+curl "http://127.0.0.1:5000/bfs/distancia?origen=1&destino=12"
+```
+
+**Response:**
+```json
+{
+  "distancia": 5,
+  "camino": [1, 2, 3, 7, 8, 9, 12],
+  "pasos": [1, 2, 4, 3, 5, 7, 6, 8, 10, 9, 11, 12]
+}
+```
+
+**Interpretación:**
+- **Distancia**: 5 grados de separación
+- **Camino**: Ana → Luis → Pedro → Valentina → Diego → Camila → Julián
+- **Pasos**: Orden en que BFS visitó los nodos
