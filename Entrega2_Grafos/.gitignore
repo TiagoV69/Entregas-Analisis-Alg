@@ -2,12 +2,14 @@
 venv/
 __pycache__/
 *.pyc
+venv/
 
 # Cache de tests
 .pytest_cache/
 
 # Archivos de entorno / secretos
 .env
+venv
 
 # Editor / OS
 .vscode/
