@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aplicación interactiva para resolver la selección de proyectos con programación dinámica.">
+  <title>Decide mejor | Programación dinámica</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Decide mejor, inicio">
+        <span class="brand-icon">DM</span>
+        <span><strong>Decide mejor</strong><small>Laboratorio de algoritmos</small></span>
+      </a>
+      <span class="status"><i aria-hidden="true"></i>Backend integrado</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Examen 3 · Análisis de algoritmos</p>
+          <h1>Un presupuesto.<br><em>Muchas decisiones.</em></h1>
+          <p>Elige proyectos para conseguir el mayor beneficio posible sin superar tu presupuesto. Cada proyecto se toma completo o se deja: el algoritmo encuentra la combinación óptima.</p>
+          <a class="hero-link" href="#simulador">Probar el simulador <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-card" aria-label="Resumen del problema">
+          <span class="card-kicker">Problema clásico</span>
+          <strong>Mochila 0/1</strong>
+          <span class="card-divider"></span>
+          <div class="card-stats"><span><b>1</b> decisión por proyecto</span><span><b>n × C</b> subproblemas</span></div>
+        </div>
+      </section>
+
+      <section class="simulator-grid" id="simulador">
+        <article class="panel input-panel">
+          <div class="section-heading">
+            <div><p class="eyebrow">01 · Datos de entrada</p><h2>Define tu presupuesto</h2></div>
+            <button id="load-example" class="quiet-button" type="button">Cargar ejemplo</button>
+          </div>
+          <label class="capacity-field" for="capacity">Presupuesto disponible <span>(unidades)</span>
+            <input id="capacity" type="number" min="0" max="2000" step="1" value="10" required>
+          </label>
+          <div class="table-heading"><span>Proyectos disponibles</span><span>Inversión · beneficio</span></div>
+          <div id="items-list" class="items-list" aria-live="polite"></div>
+          <button id="add-item" class="add-button" type="button">＋ Agregar proyecto</button>
+          <button id="solve" class="solve-button" type="button">Encontrar la mejor combinación <span aria-hidden="true">→</span></button>
+          <p class="limits-note">Hasta 30 proyectos · presupuesto máximo: 2.000 unidades.</p>
+        </article>
+
+        <aside class="panel result-panel" aria-live="polite">
+          <p class="eyebrow">02 · Resultado óptimo</p>
+          <div id="result-empty" class="result-empty">
+            <span class="empty-mark">?</span>
+            <h2>Tu análisis empieza aquí</h2>
+            <p>Completa los datos y presiona el botón para calcular qué proyectos conviene elegir.</p>
+          </div>
+          <div id="result-content" class="result-content hidden">
+            <span class="result-label">BENEFICIO MÁXIMO</span>
+            <strong id="max-value" class="max-value">0</strong>
+            <span class="result-unit">unidades de beneficio</span>
+            <div class="capacity-meter"><div class="meter-label"><span>Presupuesto usado</span><strong id="capacity-summary"></strong></div><div class="meter-track"><span id="capacity-bar"></span></div></div>
+            <div class="chosen-heading"><strong>Proyectos seleccionados</strong><span id="chosen-count"></span></div>
+            <ul id="chosen-items" class="chosen-list"></ul>
+            <p id="no-projects" class="no-projects hidden">Con estos datos, la mejor opción es no seleccionar proyectos.</p>
+          </div>
+          <p id="error-message" class="error-message hidden" role="alert"></p>
+        </aside>
+      </section>
+
+      <section class="theory-section" id="algoritmo">
+        <div class="theory-intro"><p class="eyebrow">03 · ¿Cómo se resuelve?</p><h2>La decisión se construye<br>paso a paso.</h2><p>En vez de probar todas las combinaciones, guardamos los mejores resultados de problemas pequeños y los reutilizamos.</p></div>
+        <div class="theory-cards">
+          <article class="theory-card"><span class="number">01</span><h3>Estado</h3><p><code>dp[i][c]</code> es el máximo beneficio usando los primeros <em>i</em> proyectos con presupuesto disponible <em>c</em>.</p></article>
+          <article class="theory-card"><span class="number">02</span><h3>Recurrencia</h3><p>Si el proyecto cabe, elegimos el mayor entre incluirlo y no incluirlo:<br><code>dp[i][c] = max(dp[i−1][c], beneficioᵢ + dp[i−1][c−inversiónᵢ])</code>.</p></article>
+          <article class="theory-card"><span class="number">03</span><h3>Casos base</h3><p><code>dp[0][c] = 0</code>: sin proyectos, beneficio cero. También es cero si el presupuesto es cero.</p></article>
+          <article class="theory-card"><span class="number">04</span><h3>Implementación</h3><p>Llenamos una tabla de abajo hacia arriba y luego la recorremos hacia atrás para saber qué proyectos forman la solución.</p></article>
+        </div>
+      </section>
+
+      <section class="table-section panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">04 · Evidencia del algoritmo</p><h2>Tabla de programación dinámica</h2></div>
+          <span id="table-caption" class="table-caption">Primero ejecuta el análisis</span>
+        </div>
+        <p class="table-description">La última fila muestra el mejor beneficio posible al considerar todos los proyectos. La columna final corresponde al presupuesto total.</p>
+        <div id="table-container" class="table-container">
+          <div class="table-placeholder">Aquí aparecerán los subproblemas calculados.</div>
+        </div>
+      </section>
+
+      <section class="complexity-strip">
+        <span class="eyebrow">Coste computacional</span>
+        <div><strong>Tiempo: O(n × C)</strong><span>Se llena una tabla por proyecto y unidad de presupuesto.</span></div>
+        <div><strong>Espacio: O(n × C)</strong><span>La tabla se conserva para mostrarla y reconstruir la solución.</span></div>
+      </section>
+    </main>
+    <footer><span>Entrega 3 · Análisis de Algoritmos</span><a href="#algoritmo">Programación dinámica · Mochila 0/1</a></footer>
+  </div>
+</body>
+</html>
