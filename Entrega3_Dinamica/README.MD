@@ -1,3 +1,14 @@
+
+## Autores
+
+- Brayan Alexis Correa Torres
+- Enrique Betancur Pineda
+- Santiago Varela Jimenez
+
+## Link de grabación
+
+- https://correoitmedu-my.sharepoint.com/:v:/g/personal/santiagovarela314184_correo_itm_edu_co/IQC0qPBSuFQWRKRwsPgLxpkWAV345KD4g1bAZuCxBbfkO0k
+
 # Decide mejor — Programación dinámica
 
 Aplicación web para resolver el problema de la mochila 0/1 aplicado a la selección de proyectos comunitarios: dado un presupuesto limitado, elegir el conjunto de proyectos con el mayor beneficio total sin excederlo.
