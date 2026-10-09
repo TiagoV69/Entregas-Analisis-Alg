@@ -14,3 +14,21 @@ def optimize_budget(capacity, items):
         raise ValueError("La lista de proyectos no tiene un formato válido.")
     if len(items) > MAX_ITEMS:
         raise ValueError(f"Se permiten como máximo {MAX_ITEMS} proyectos.")
+
+
+    normalized_items = []
+    for index, item in enumerate(items, start=1):
+        if not isinstance(item, dict):
+            raise ValueError(f"El proyecto {index} no tiene un formato válido.")
+        name = item.get("name")
+        weight = item.get("weight")
+        value = item.get("value")
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError(f"El proyecto {index} debe tener un nombre.")
+        if isinstance(weight, bool) or not isinstance(weight, int) or weight <= 0:
+            raise ValueError(f"El peso del proyecto {index} debe ser un entero positivo.")
+        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+            raise ValueError(f"El beneficio del proyecto {index} debe ser un entero no negativo.")
+        normalized_items.append(
+            {"id": index, "name": name.strip(), "weight": weight, "value": value}
+        )
