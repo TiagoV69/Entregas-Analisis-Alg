@@ -32,3 +32,23 @@ def optimize_budget(capacity, items):
         normalized_items.append(
             {"id": index, "name": name.strip(), "weight": weight, "value": value}
         )
+
+
+    # dp[i][c] es el beneficio máximo con los primeros i proyectos y capacidad c.
+    dp = [[0] * (capacity + 1) for _ in range(len(normalized_items) + 1)]
+    for i, item in enumerate(normalized_items, start=1):
+        for current_capacity in range(capacity + 1):
+            without_item = dp[i - 1][current_capacity]
+            with_item = 0
+            if item["weight"] <= current_capacity:
+                with_item = item["value"] + dp[i - 1][current_capacity - item["weight"]]
+            dp[i][current_capacity] = max(without_item, with_item)
+
+    selected = []
+    remaining = capacity
+    for i in range(len(normalized_items), 0, -1):
+        if dp[i][remaining] != dp[i - 1][remaining]:
+            item = normalized_items[i - 1]
+            selected.append(item)
+            remaining -= item["weight"]
+    selected.reverse()
