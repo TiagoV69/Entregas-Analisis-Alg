@@ -52,3 +52,14 @@ def optimize_budget(capacity, items):
             selected.append(item)
             remaining -= item["weight"]
     selected.reverse()
+
+    used_capacity = sum(item["weight"] for item in selected)
+    return {
+        "capacity": capacity,
+        "maxValue": dp[-1][capacity],
+        "usedCapacity": used_capacity,
+        "remainingCapacity": capacity - used_capacity,
+        "selectedItems": selected,
+        "items": normalized_items,
+        "table": dp,
+    }
