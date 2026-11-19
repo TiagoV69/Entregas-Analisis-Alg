@@ -7,16 +7,34 @@ Repositorio del grupo con los ocho ejercicios Medium de LeetCode. Cada ejercicio
 | Integrante              | Ejercicios  |
 | ----------------------- | ----------- |
 | Santiago Varela Jimenez | 743, 1584   |
-| Brayan                  | _pendiente_ |
-| Enrique                 | _pendiente_ |
+| Brayan                  | 215, 179, 72|
+| Enrique                 | 300, 134, 79|
 
 ## 1. 215. Kth Largest Element in an Array
 
-Pendiente
+Enlace: https://leetcode.com/problems/kth-largest-element-in-an-array/  
+Lenguaje: Java  
+Código: [`kth-largest/Solution.java`](kth-largest/Solution.java)  
+Familia: montículos (heap)
+
+**Idea:** se mantiene una cola de prioridad mínima con los `k` elementos más grandes encontrados hasta el momento. Al recorrer cada número, se agrega al montón y, si este supera un tamaño de `k`, se elimina el menor elemento con `poll()`. Al final, la raíz del montón contiene el k-ésimo elemento más grande.
+
+**Complejidad:** con `n` elementos, el tiempo es **O(n log k)** y el espacio es **O(k)**.
+
+![Accepted — Kth Largest Element in an Array](evidencias/kth-largest.png)
 
 ## 2. 179. Largest Number
 
-Pendiente
+Enlace: https://leetcode.com/problems/largest-number/  
+Lenguaje: Java  
+Código: [`largest-number/Solution.java`](largest-number/Solution.java)  
+Familia: ordenamiento
+
+**Idea:** se convierten los números a cadenas y se ordenan con un comparador personalizado. Para dos cadenas `a` y `b`, se compara `b + a` contra `a + b`, de modo que quede primero la combinación que produce el número mayor. Después se concatenan las cadenas en el orden obtenido; si el primer resultado es `"0"`, se devuelve `"0"` para evitar respuestas como `"000"`.
+
+**Complejidad:** con `n` números, el tiempo es **O(n log n)** por el ordenamiento y el espacio es **O(n)** para las cadenas.
+
+![Accepted — Largest Number](evidencias/largest-number.png)
 
 ## 3. 743. Network Delay Time
 
@@ -46,7 +64,16 @@ Familia: grafos (árbol de recubrimiento mínimo)
 
 ## 5. 72. Edit Distance
 
-Pendiente
+Enlace: https://leetcode.com/problems/edit-distance/  
+Lenguaje: Java  
+Código: [`edit-distance/Solution.java`](edit-distance/Solution.java)  
+Familia: programación dinámica
+
+**Idea:** se construye una tabla `dp` donde `dp[i][j]` representa el número mínimo de operaciones para convertir los primeros `i` caracteres de `word1` en los primeros `j` caracteres de `word2`. Las primeras fila y columna representan convertir una cadena vacía en la otra. Si los caracteres coinciden, se conserva el resultado anterior; si no coinciden, se toma el menor costo entre eliminar, insertar o reemplazar un carácter y se suma 1.
+
+**Complejidad:** con longitudes `n` y `m`, el tiempo es **O(n × m)** y el espacio es **O(n × m)** por la tabla de programación dinámica.
+
+![Accepted — Edit Distance](evidencias/edit-distance.png)
 
 ## 6. 300. Longest Increasing Subsequence
 
