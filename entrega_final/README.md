@@ -102,7 +102,7 @@ Enlace: [LeetCode - Gas Station](https://leetcode.com/problems/gas-station/)
 
 Lenguaje: Java
 
-Código: [`gas-station/Solution.java`](gas-station/Solution.java)
+Código: [`Gas-Station/Solution.java`](Gas-Station/Solution.java)
 
 Familia: Algoritmo Greedy (voraz).
 
@@ -119,4 +119,21 @@ Se recorren las estaciones una sola vez, calculando la diferencia entre la gasol
 
 ## 8. 79. Word Search
 
-Pendiente
+Enlace: [LeetCode - Word Search](https://leetcode.com/problems/word-search/)
+
+Lenguaje: Java
+
+Código: [`Word-Search/Solution.java`](Word-Search/Solution.java)
+
+Familia: Backtracking (vuelta atrás) con búsqueda en profundidad (DFS).
+
+**Idea:**
+
+Se recorre la matriz buscando las posiciones que coincidan con la primera letra de la palabra. Desde cada posición se realiza una búsqueda recursiva en las cuatro direcciones posibles: arriba, abajo, izquierda y derecha. Se utiliza una matriz auxiliar de visitados para evitar utilizar una misma celda más de una vez durante el recorrido. Si una ruta no permite completar la palabra, se aplica backtracking, desmarcando la celda utilizada y probando otras posibilidades. Si se logra encontrar toda la palabra siguiendo celdas adyacentes, se retorna true; de lo contrario, se retorna false.
+
+**Complejidad:**
+
+- **Tiempo:** O(m × n × 3^L), donde m y n representan las dimensiones de la matriz y L la longitud de la palabra. Se prueban todas las posiciones iniciales y, en cada paso posterior al primero, existen como máximo tres direcciones posibles, debido a que no se puede regresar a la celda anterior.
+- **Espacio:** O(m × n + L), debido a la matriz auxiliar de visitados y a la profundidad máxima de la recursión.
+
+![Accepted — Word Search](evidencias/Word-Search.png)
