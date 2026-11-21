@@ -77,7 +77,24 @@ Familia: programación dinámica
 
 ## 6. 300. Longest Increasing Subsequence
 
-Pendiente
+Enlace: [LeetCode - Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+
+Lenguaje: Java
+
+Código: [`longest-increasing-subsequence/Solution.java`](longest-increasing-subsequence/Solution.java)
+
+Familia: Programación dinámica optimizada con búsqueda binaria.
+
+**Idea:**
+
+Se utiliza un arreglo auxiliar llamado `cola` para almacenar los menores valores finales posibles de subsecuencias crecientes de diferentes longitudes. Se recorre el arreglo original y, para cada elemento, se aplica búsqueda binaria para encontrar la primera posición cuyo valor sea mayor o igual al elemento actual. Si se encuentra una posición, se reemplaza su valor; de lo contrario, se agrega al final y se incrementa la longitud. Al finalizar, la longitud del arreglo auxiliar representa la longitud de la subsecuencia estrictamente creciente más larga.
+
+**Complejidad:**
+
+- **Tiempo:** O(n log n), porque se recorren los elementos del arreglo y para cada uno se realiza una búsqueda binaria.
+- **Espacio:** O(n), debido al arreglo auxiliar que puede almacenar hasta n elementos.
+
+![Accepted — Edit Distance](evidencias/edit-distance.png)
 
 ## 7. 134. Gas Station
 
