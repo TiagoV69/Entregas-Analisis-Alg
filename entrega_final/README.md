@@ -98,7 +98,24 @@ Se utiliza un arreglo auxiliar llamado `cola` para almacenar los menores valores
 
 ## 7. 134. Gas Station
 
-Pendiente
+Enlace: [LeetCode - Gas Station](https://leetcode.com/problems/gas-station/)
+
+Lenguaje: Java
+
+Código: [`gas-station/Solution.java`](gas-station/Solution.java)
+
+Familia: Algoritmo Greedy (voraz).
+
+**Idea:**
+
+Se recorren las estaciones una sola vez, calculando la diferencia entre la gasolina disponible y el costo de desplazamiento. Se mantienen dos acumuladores: uno para la gasolina total y otro para el combustible disponible durante el recorrido. Si el tanque queda negativo en alguna estación, significa que no es posible iniciar desde la estación candidata actual ni desde las estaciones recorridas desde ese candidato, por lo que se reinicia el tanque y se establece como nuevo punto de partida la siguiente estación. Al finalizar, se verifica si la gasolina total es suficiente para cubrir el costo total del recorrido. Si no es suficiente, se retorna -1; de lo contrario, se retorna el índice de la estación inicial encontrada.
+
+**Complejidad:**
+
+- **Tiempo:** O(n), porque se recorren los arreglos `gas` y `cost` una sola vez.
+- **Espacio:** O(1), porque únicamente se utilizan variables auxiliares, sin estructuras adicionales que dependan del tamaño de la entrada.
+
+![Accepted — Gas Station](evidencias/gas-station.png)
 
 ## 8. 79. Word Search
 
