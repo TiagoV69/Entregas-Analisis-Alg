@@ -115,7 +115,7 @@ Se recorren las estaciones una sola vez, calculando la diferencia entre la gasol
 - **Tiempo:** O(n), porque se recorren los arreglos `gas` y `cost` una sola vez.
 - **Espacio:** O(1), porque únicamente se utilizan variables auxiliares, sin estructuras adicionales que dependan del tamaño de la entrada.
 
-![Accepted — Gas Station](evidencias/gas-station.png)
+![Accepted — Gas Station](evidencias/Gas-Station.png)
 
 ## 8. 79. Word Search
 
